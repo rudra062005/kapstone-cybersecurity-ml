@@ -1,0 +1,18 @@
+incident_id,alert_count,risk_level,max_anomaly_score,event_types,affected_assets,source_ips,recommendations
+INC-15f1e117,1,critical,0.8,Potential_Attack,ASSET-2,0.0.0.0,Isolate affected asset immediately.; Notify SOC/IR team.
+INC-e2c4fe6c,1,critical,0.82,Potential_Attack,ASSET-4,0.0.0.0,Isolate affected asset immediately.; Notify SOC/IR team.
+INC-f0b5d88b,1,critical,0.82,Potential_Attack,ASSET-15,0.0.0.0,Isolate affected asset immediately.; Notify SOC/IR team.
+INC-3e3cef4b,1,critical,1.0,Potential_Attack,ASSET-17,0.0.0.0,Isolate affected asset immediately.; Notify SOC/IR team.
+INC-1648f175,1,critical,0.98,Potential_Attack,ASSET-22,0.0.0.0,Isolate affected asset immediately.; Notify SOC/IR team.
+INC-e61cb643,1,high,0.6516,Potential_Attack,ASSET-1,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-deff0212,1,high,0.72,Potential_Attack,ASSET-5,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-8398f452,1,high,0.65,Potential_Attack,ASSET-8,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-bd8ae75c,1,high,0.75,Potential_Attack,ASSET-13,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-9c72951b,1,high,0.75,Potential_Attack,ASSET-19,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-16ffcb1f,1,high,0.764,Potential_Attack,ASSET-20,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-b8ac8115,1,high,0.63,Potential_Attack,ASSET-23,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-dc7773f1,1,high,0.68,Potential_Attack,ASSET-24,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-581d6984,1,high,0.67,Potential_Attack,ASSET-25,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-f5e8ddee,1,medium,0.5703,Potential_Attack,ASSET-3,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-2288f8b8,1,medium,0.5878,Potential_Attack,ASSET-6,0.0.0.0,Monitor asset; collect further evidence before escalating.
+INC-3a498118,1,medium,0.5152,Potential_Attack,ASSET-16,0.0.0.0,Monitor asset; collect further evidence before escalating.

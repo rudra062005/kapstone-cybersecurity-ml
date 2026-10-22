@@ -1,0 +1,1630 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-10-22T06:52:29.648130+00:00",
+    "report_type": "Security Threat Detection Report",
+    "dataset": "UNSW-NB15",
+    "assessment": "Kapstone AI/ML Developer Intern Technical Assessment",
+    "disclaimer": "This report is generated automatically for assessment purposes. Detections are model-based probabilities, NOT confirmed incidents. All findings require human investigation before action is taken. Compliance mappings are indicative, not a formal audit."
+  },
+  "executive_summary": {
+    "total_events_analysed": 25,
+    "events_flagged_as_suspicious": 17,
+    "detection_rate_pct": 68.0,
+    "total_incidents": 17,
+    "severity_distribution": {
+      "high": 9,
+      "critical": 5,
+      "medium": 3
+    },
+    "incident_risk_distribution": {
+      "critical": 5,
+      "high": 9,
+      "medium": 3
+    },
+    "unique_affected_assets": 17
+  },
+  "dataset_and_methodology": {
+    "dataset": "UNSW-NB15 (Network Intrusion Detection)",
+    "source": "University of New South Wales Canberra Cyber Range Lab",
+    "split": "Official training/testing CSV files",
+    "target_column": "label",
+    "model": "RandomForestClassifier",
+    "features": 42,
+    "training_samples": 175341,
+    "testing_samples": 82332,
+    "class_imbalance_handling": "class_weight=balanced in RandomForestClassifier",
+    "dataset_profile": {},
+    "limitations": [
+      "srcip, dstip, and timestamps absent from Kaggle CSVs; IP-based correlation uses placeholders.",
+      "Time-window correlation requires real timestamps not present in this CSV split.",
+      "Model trained on network flow data; real deployment needs retraining on live traffic.",
+      "False positives and negatives are inherent; human validation required for all findings."
+    ]
+  },
+  "model_evaluation": {
+    "accuracy": 0.8925,
+    "precision": 0.8503,
+    "recall": 0.9767,
+    "f1_score": 0.9091,
+    "baseline_accuracy": 0.5506,
+    "confusion_matrix": [
+      [
+        29204,
+        7796
+      ],
+      [
+        1058,
+        44274
+      ]
+    ],
+    "false_positives": 7796,
+    "false_negatives": 1058,
+    "fp_rate": 0.2107,
+    "fn_rate": 0.0233,
+    "top_10_features": [
+      {
+        "feature": "ct_state_ttl",
+        "importance": 0.135323
+      },
+      {
+        "feature": "sload",
+        "importance": 0.075048
+      },
+      {
+        "feature": "sttl",
+        "importance": 0.070493
+      },
+      {
+        "feature": "dttl",
+        "importance": 0.063996
+      },
+      {
+        "feature": "sbytes",
+        "importance": 0.047558
+      },
+      {
+        "feature": "rate",
+        "importance": 0.042646
+      },
+      {
+        "feature": "dload",
+        "importance": 0.04188
+      },
+      {
+        "feature": "dmean",
+        "importance": 0.03906
+      },
+      {
+        "feature": "ct_srv_dst",
+        "importance": 0.037025
+      },
+      {
+        "feature": "smean",
+        "importance": 0.035367
+      }
+    ],
+    "fp_explanation": "False positives (normal traffic classified as attack) increase alert fatigue. Mitigation: tune threshold, add whitelist rules, collect more normal traffic.",
+    "fn_explanation": "False negatives (attacks missed by model) are the more dangerous error type. Mitigation: diversify training data, use ensemble approaches, add rule-based detection."
+  },
+  "detected_threats": [
+    {
+      "event_id": "02e3dfd0-596b-5e62-8d20-df68790093ec",
+      "event_type": "Potential_Attack",
+      "severity": "high",
+      "anomaly_score": 0.6516,
+      "asset_id": "ASSET-1",
+      "flag_reason": "ML prob 65.16%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 496,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1.1e-05,
+        "rate": 90909.0902,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "d969b3b1-28b4-5bb1-bf3a-37cbfee0ece8",
+      "event_type": "Potential_Attack",
+      "severity": "critical",
+      "anomaly_score": 0.8,
+      "asset_id": "ASSET-2",
+      "flag_reason": "ML prob 80.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1762,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 8e-06,
+        "rate": 125000.0003,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "611d9453-4903-5df7-a4f7-29ffe5a843c1",
+      "event_type": "Potential_Attack",
+      "severity": "medium",
+      "anomaly_score": 0.5703,
+      "asset_id": "ASSET-3",
+      "flag_reason": "ML prob 57.03%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1068,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 5e-06,
+        "rate": 200000.0051,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "f8a11ea2-4e72-5737-a8b7-c5030aa82e19",
+      "event_type": "Potential_Attack",
+      "severity": "critical",
+      "anomaly_score": 0.82,
+      "asset_id": "ASSET-4",
+      "flag_reason": "ML prob 82.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 900,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 6e-06,
+        "rate": 166666.6608,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "df7a7f3c-e8dc-59c0-8f41-2d80c4f3e0f0",
+      "event_type": "Potential_Attack",
+      "severity": "high",
+      "anomaly_score": 0.72,
+      "asset_id": "ASSET-5",
+      "flag_reason": "ML prob 72.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2126,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1e-05,
+        "rate": 100000.0025,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "93cbf1b0-d077-58ff-950c-568b18b9b467",
+      "event_type": "Potential_Attack",
+      "severity": "medium",
+      "anomaly_score": 0.5878,
+      "asset_id": "ASSET-6",
+      "flag_reason": "ML prob 58.78%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 784,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 3e-06,
+        "rate": 333333.3215,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "21406c72-aef0-5572-823a-d861f00a63b3",
+      "event_type": "Potential_Attack",
+      "severity": "high",
+      "anomaly_score": 0.65,
+      "asset_id": "ASSET-8",
+      "flag_reason": "ML prob 65.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1384,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 2.8e-05,
+        "rate": 35714.28522,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "9e235a0a-c1dd-5a88-98f3-f6f0786c3587",
+      "event_type": "Potential_Attack",
+      "severity": "high",
+      "anomaly_score": 0.75,
+      "asset_id": "ASSET-13",
+      "flag_reason": "ML prob 75.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1454,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 4e-06,
+        "rate": 250000.0006,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "2b23487f-cd4b-5dda-a506-6326e8744013",
+      "event_type": "Potential_Attack",
+      "severity": "critical",
+      "anomaly_score": 0.82,
+      "asset_id": "ASSET-15",
+      "flag_reason": "ML prob 82.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2040,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1.1e-05,
+        "rate": 90909.0902,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "0fbd46b5-ffc4-5ad4-867a-4c705cb0cfdc",
+      "event_type": "Potential_Attack",
+      "severity": "medium",
+      "anomaly_score": 0.5152,
+      "asset_id": "ASSET-16",
+      "flag_reason": "ML prob 51.52%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1052,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 4e-06,
+        "rate": 250000.0006,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "5d86851c-c238-5c8a-b2a9-bb6173285bfa",
+      "event_type": "Potential_Attack",
+      "severity": "critical",
+      "anomaly_score": 1.0,
+      "asset_id": "ASSET-17",
+      "flag_reason": "ML prob 100.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 314,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 3e-06,
+        "rate": 333333.3215,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "45c45c83-0ad0-5215-9d18-0c72a2c124a0",
+      "event_type": "Potential_Attack",
+      "severity": "high",
+      "anomaly_score": 0.75,
+      "asset_id": "ASSET-19",
+      "flag_reason": "ML prob 75.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1568,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 2e-06,
+        "rate": 500000.0013,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "44ec236c-9019-5d56-a2ed-ae18b26def35",
+      "event_type": "Potential_Attack",
+      "severity": "high",
+      "anomaly_score": 0.764,
+      "asset_id": "ASSET-20",
+      "flag_reason": "ML prob 76.40%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2054,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 4e-06,
+        "rate": 250000.0006,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "7eaea92c-949c-56e2-85d9-ddafac040955",
+      "event_type": "Potential_Attack",
+      "severity": "critical",
+      "anomaly_score": 0.98,
+      "asset_id": "ASSET-22",
+      "flag_reason": "ML prob 98.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 202,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 9e-06,
+        "rate": 111111.1072,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "214c0f65-6a71-5d27-80b9-b6060082e7fb",
+      "event_type": "Potential_Attack",
+      "severity": "high",
+      "anomaly_score": 0.63,
+      "asset_id": "ASSET-23",
+      "flag_reason": "ML prob 63.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1334,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1e-05,
+        "rate": 100000.0025,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "42f7ba71-ca02-5ca8-b598-8f033dd32dd8",
+      "event_type": "Potential_Attack",
+      "severity": "high",
+      "anomaly_score": 0.68,
+      "asset_id": "ASSET-24",
+      "flag_reason": "ML prob 68.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2058,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 5e-06,
+        "rate": 200000.0051,
+        "ct_state_ttl": 2
+      }
+    },
+    {
+      "event_id": "df9a4f2f-c0fc-5709-9db1-6f8a50da0575",
+      "event_type": "Potential_Attack",
+      "severity": "high",
+      "anomaly_score": 0.67,
+      "asset_id": "ASSET-25",
+      "flag_reason": "ML prob 67.00%. Potential threat requiring investigation.",
+      "evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 286,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 3e-06,
+        "rate": 333333.3215,
+        "ct_state_ttl": 2
+      }
+    }
+  ],
+  "correlated_incidents": [
+    {
+      "incident_id": "INC-15f1e117",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-2"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "critical",
+      "max_anomaly_score": 0.8,
+      "alert_ids": [
+        "d969b3b1-28b4-5bb1-bf3a-37cbfee0ece8"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-2 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1762,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 8e-06,
+        "rate": 125000.0003,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Isolate affected asset immediately.",
+        "Notify SOC/IR team."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647932+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-e2c4fe6c",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-4"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "critical",
+      "max_anomaly_score": 0.82,
+      "alert_ids": [
+        "f8a11ea2-4e72-5737-a8b7-c5030aa82e19"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-4 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 900,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 6e-06,
+        "rate": 166666.6608,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Isolate affected asset immediately.",
+        "Notify SOC/IR team."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647951+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-f0b5d88b",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-15"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "critical",
+      "max_anomaly_score": 0.82,
+      "alert_ids": [
+        "2b23487f-cd4b-5dda-a506-6326e8744013"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-15 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2040,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1.1e-05,
+        "rate": 90909.0902,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Isolate affected asset immediately.",
+        "Notify SOC/IR team."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647981+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-3e3cef4b",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-17"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "critical",
+      "max_anomaly_score": 1.0,
+      "alert_ids": [
+        "5d86851c-c238-5c8a-b2a9-bb6173285bfa"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-17 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 314,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 3e-06,
+        "rate": 333333.3215,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Isolate affected asset immediately.",
+        "Notify SOC/IR team."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647992+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-1648f175",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-22"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "critical",
+      "max_anomaly_score": 0.98,
+      "alert_ids": [
+        "7eaea92c-949c-56e2-85d9-ddafac040955"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-22 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 202,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 9e-06,
+        "rate": 111111.1072,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Isolate affected asset immediately.",
+        "Notify SOC/IR team."
+      ],
+      "timestamp": "2026-10-22T06:52:29.648008+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-e61cb643",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-1"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "high",
+      "max_anomaly_score": 0.6516,
+      "alert_ids": [
+        "02e3dfd0-596b-5e62-8d20-df68790093ec"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-1 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 496,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1.1e-05,
+        "rate": 90909.0902,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647914+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-deff0212",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-5"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "high",
+      "max_anomaly_score": 0.72,
+      "alert_ids": [
+        "df7a7f3c-e8dc-59c0-8f41-2d80c4f3e0f0"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-5 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2126,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1e-05,
+        "rate": 100000.0025,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647958+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-8398f452",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-8"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "high",
+      "max_anomaly_score": 0.65,
+      "alert_ids": [
+        "21406c72-aef0-5572-823a-d861f00a63b3"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-8 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1384,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 2.8e-05,
+        "rate": 35714.28522,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647970+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-bd8ae75c",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-13"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "high",
+      "max_anomaly_score": 0.75,
+      "alert_ids": [
+        "9e235a0a-c1dd-5a88-98f3-f6f0786c3587"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-13 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1454,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 4e-06,
+        "rate": 250000.0006,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647975+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-9c72951b",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-19"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "high",
+      "max_anomaly_score": 0.75,
+      "alert_ids": [
+        "45c45c83-0ad0-5215-9d18-0c72a2c124a0"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-19 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1568,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 2e-06,
+        "rate": 500000.0013,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647997+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-16ffcb1f",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-20"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "high",
+      "max_anomaly_score": 0.764,
+      "alert_ids": [
+        "44ec236c-9019-5d56-a2ed-ae18b26def35"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-20 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2054,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 4e-06,
+        "rate": 250000.0006,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.648003+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-b8ac8115",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-23"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "high",
+      "max_anomaly_score": 0.63,
+      "alert_ids": [
+        "214c0f65-6a71-5d27-80b9-b6060082e7fb"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-23 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1334,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1e-05,
+        "rate": 100000.0025,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.648013+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-dc7773f1",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-24"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "high",
+      "max_anomaly_score": 0.68,
+      "alert_ids": [
+        "42f7ba71-ca02-5ca8-b598-8f033dd32dd8"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-24 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2058,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 5e-06,
+        "rate": 200000.0051,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.648018+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-581d6984",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-25"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "high",
+      "max_anomaly_score": 0.67,
+      "alert_ids": [
+        "df9a4f2f-c0fc-5709-9db1-6f8a50da0575"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-25 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 286,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 3e-06,
+        "rate": 333333.3215,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.648024+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-f5e8ddee",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-3"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "medium",
+      "max_anomaly_score": 0.5703,
+      "alert_ids": [
+        "611d9453-4903-5df7-a4f7-29ffe5a843c1"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-3 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1068,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 5e-06,
+        "rate": 200000.0051,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647942+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-2288f8b8",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-6"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "medium",
+      "max_anomaly_score": 0.5878,
+      "alert_ids": [
+        "93cbf1b0-d077-58ff-950c-568b18b9b467"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-6 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 784,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 3e-06,
+        "rate": 333333.3215,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647964+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-3a498118",
+      "alert_count": 1,
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "affected_assets": [
+        "ASSET-16"
+      ],
+      "source_ips": [
+        "0.0.0.0"
+      ],
+      "risk_level": "medium",
+      "max_anomaly_score": 0.5152,
+      "alert_ids": [
+        "0fbd46b5-ffc4-5ad4-867a-4c705cb0cfdc"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-16 classified as Potential_Attack.",
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1052,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 4e-06,
+        "rate": 250000.0006,
+        "ct_state_ttl": 2
+      },
+      "recommendations": [
+        "Monitor asset; collect further evidence before escalating."
+      ],
+      "timestamp": "2026-10-22T06:52:29.647986+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    }
+  ],
+  "affected_assets": [
+    "ASSET-15",
+    "ASSET-17",
+    "ASSET-25",
+    "ASSET-4",
+    "ASSET-1",
+    "ASSET-8",
+    "ASSET-22",
+    "ASSET-5",
+    "ASSET-20",
+    "ASSET-13",
+    "ASSET-23",
+    "ASSET-24",
+    "ASSET-6",
+    "ASSET-19",
+    "ASSET-2",
+    "ASSET-16",
+    "ASSET-3"
+  ],
+  "compliance_mappings": [
+    {
+      "incident_id": "INC-15f1e117",
+      "risk_level": "critical",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1762,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 8e-06,
+        "rate": 125000.0003,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-e2c4fe6c",
+      "risk_level": "critical",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 900,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 6e-06,
+        "rate": 166666.6608,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-f0b5d88b",
+      "risk_level": "critical",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2040,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1.1e-05,
+        "rate": 90909.0902,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-3e3cef4b",
+      "risk_level": "critical",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 314,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 3e-06,
+        "rate": 333333.3215,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-1648f175",
+      "risk_level": "critical",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 202,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 9e-06,
+        "rate": 111111.1072,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-e61cb643",
+      "risk_level": "high",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 496,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1.1e-05,
+        "rate": 90909.0902,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-deff0212",
+      "risk_level": "high",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2126,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1e-05,
+        "rate": 100000.0025,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-8398f452",
+      "risk_level": "high",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1384,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 2.8e-05,
+        "rate": 35714.28522,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-bd8ae75c",
+      "risk_level": "high",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1454,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 4e-06,
+        "rate": 250000.0006,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-9c72951b",
+      "risk_level": "high",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1568,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 2e-06,
+        "rate": 500000.0013,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-16ffcb1f",
+      "risk_level": "high",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2054,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 4e-06,
+        "rate": 250000.0006,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-b8ac8115",
+      "risk_level": "high",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1334,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 1e-05,
+        "rate": 100000.0025,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-dc7773f1",
+      "risk_level": "high",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 2058,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 5e-06,
+        "rate": 200000.0051,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-581d6984",
+      "risk_level": "high",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 286,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 3e-06,
+        "rate": 333333.3215,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-f5e8ddee",
+      "risk_level": "medium",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1068,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 5e-06,
+        "rate": 200000.0051,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-2288f8b8",
+      "risk_level": "medium",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 784,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 3e-06,
+        "rate": 333333.3215,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-3a498118",
+      "risk_level": "medium",
+      "event_types": [
+        "Potential_Attack"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-2",
+          "control_name": "Potentially adverse events are analysed",
+          "rationale": "ML-flagged events require analysis before classification."
+        }
+      ],
+      "remediation": [
+        "Investigate the flagged event; escalate if confirmed malicious."
+      ],
+      "supporting_evidence": {
+        "proto": "udp",
+        "service": "-",
+        "state": "INT",
+        "sbytes": 1052,
+        "dbytes": 0,
+        "sttl": 254,
+        "dttl": 0,
+        "dur": 4e-06,
+        "rate": 250000.0006,
+        "ct_state_ttl": 2
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    }
+  ],
+  "remediation_recommendations": [
+    "Isolate affected asset immediately.",
+    "Notify SOC/IR team.",
+    "Monitor asset; collect further evidence before escalating."
+  ],
+  "limitations_and_next_steps": [
+    "Retrain on labelled live traffic for production deployment.",
+    "Integrate a real SIEM connector to replace the CSV data source.",
+    "Implement timestamp-based correlation when real timestamps are available.",
+    "Expand compliance mapping coverage to all NIST CSF 2.0 subcategories.",
+    "Add continuous model retraining and drift detection."
+  ]
+}
