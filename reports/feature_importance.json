@@ -1,0 +1,170 @@
+[
+  {
+    "feature": "ct_state_ttl",
+    "importance": 0.120316
+  },
+  {
+    "feature": "sload",
+    "importance": 0.077009
+  },
+  {
+    "feature": "sttl",
+    "importance": 0.070081
+  },
+  {
+    "feature": "dload",
+    "importance": 0.047349
+  },
+  {
+    "feature": "smean",
+    "importance": 0.046713
+  },
+  {
+    "feature": "dur",
+    "importance": 0.046242
+  },
+  {
+    "feature": "rate",
+    "importance": 0.043123
+  },
+  {
+    "feature": "ct_dst_src_ltm",
+    "importance": 0.038643
+  },
+  {
+    "feature": "dttl",
+    "importance": 0.038294
+  },
+  {
+    "feature": "sbytes",
+    "importance": 0.037224
+  },
+  {
+    "feature": "ct_dst_sport_ltm",
+    "importance": 0.03446
+  },
+  {
+    "feature": "dmean",
+    "importance": 0.033853
+  },
+  {
+    "feature": "synack",
+    "importance": 0.033016
+  },
+  {
+    "feature": "tcprtt",
+    "importance": 0.032463
+  },
+  {
+    "feature": "sinpkt",
+    "importance": 0.03053
+  },
+  {
+    "feature": "ct_srv_dst",
+    "importance": 0.029903
+  },
+  {
+    "feature": "ct_srv_src",
+    "importance": 0.028878
+  },
+  {
+    "feature": "ackdat",
+    "importance": 0.028154
+  },
+  {
+    "feature": "dbytes",
+    "importance": 0.019196
+  },
+  {
+    "feature": "dinpkt",
+    "importance": 0.018638
+  },
+  {
+    "feature": "dpkts",
+    "importance": 0.013598
+  },
+  {
+    "feature": "sjit",
+    "importance": 0.012672
+  },
+  {
+    "feature": "ct_src_ltm",
+    "importance": 0.011639
+  },
+  {
+    "feature": "djit",
+    "importance": 0.011429
+  },
+  {
+    "feature": "spkts",
+    "importance": 0.009803
+  },
+  {
+    "feature": "ct_dst_ltm",
+    "importance": 0.009479
+  },
+  {
+    "feature": "dtcpb",
+    "importance": 0.009417
+  },
+  {
+    "feature": "state",
+    "importance": 0.00929
+  },
+  {
+    "feature": "service",
+    "importance": 0.009119
+  },
+  {
+    "feature": "ct_src_dport_ltm",
+    "importance": 0.008864
+  },
+  {
+    "feature": "stcpb",
+    "importance": 0.00844
+  },
+  {
+    "feature": "sloss",
+    "importance": 0.007974
+  },
+  {
+    "feature": "dloss",
+    "importance": 0.006755
+  },
+  {
+    "feature": "proto",
+    "importance": 0.00466
+  },
+  {
+    "feature": "is_sm_ips_ports",
+    "importance": 0.00412
+  },
+  {
+    "feature": "swin",
+    "importance": 0.00281
+  },
+  {
+    "feature": "trans_depth",
+    "importance": 0.001679
+  },
+  {
+    "feature": "ct_flw_http_mthd",
+    "importance": 0.001428
+  },
+  {
+    "feature": "response_body_len",
+    "importance": 0.001311
+  },
+  {
+    "feature": "is_ftp_login",
+    "importance": 0.0007
+  },
+  {
+    "feature": "ct_ftp_cmd",
+    "importance": 0.000652
+  },
+  {
+    "feature": "dwin",
+    "importance": 7.7e-05
+  }
+]

@@ -1,0 +1,377 @@
+{
+  "report_metadata": {
+    "generated_at": "2026-10-22T06:46:38.350740+00:00",
+    "report_type": "Security Threat Detection Report",
+    "dataset": "UNSW-NB15",
+    "assessment": "Kapstone AI/ML Developer Intern Technical Assessment",
+    "disclaimer": "This report is generated automatically for assessment purposes. Detections are model-based probabilities, NOT confirmed incidents. All findings require human investigation before action is taken. Compliance mappings are indicative, not a formal audit."
+  },
+  "executive_summary": {
+    "total_events_analysed": 3,
+    "events_flagged_as_suspicious": 3,
+    "detection_rate_pct": 100.0,
+    "total_incidents": 3,
+    "severity_distribution": {
+      "critical": 2,
+      "medium": 1
+    },
+    "incident_risk_distribution": {
+      "critical": 3
+    },
+    "unique_affected_assets": 3
+  },
+  "dataset_and_methodology": {
+    "dataset": "UNSW-NB15 (Network Intrusion Detection)",
+    "source": "University of New South Wales Canberra Cyber Range Lab",
+    "split": "Official training/testing CSV files",
+    "target_column": "label",
+    "model": "RandomForestClassifier",
+    "features": 42,
+    "training_samples": 877,
+    "testing_samples": 82332,
+    "class_imbalance_handling": "class_weight=balanced in RandomForestClassifier",
+    "dataset_profile": {},
+    "limitations": [
+      "srcip, dstip, and timestamps absent from Kaggle CSVs; IP-based correlation uses placeholders.",
+      "Time-window correlation requires real timestamps not present in this CSV split.",
+      "Model trained on network flow data; real deployment needs retraining on live traffic.",
+      "False positives and negatives are inherent; human validation required for all findings."
+    ]
+  },
+  "model_evaluation": {
+    "accuracy": 0.8787,
+    "precision": 0.8368,
+    "recall": 0.9688,
+    "f1_score": 0.8979,
+    "baseline_accuracy": 0.5506,
+    "confusion_matrix": [
+      [
+        28433,
+        8567
+      ],
+      [
+        1416,
+        43916
+      ]
+    ],
+    "false_positives": 8567,
+    "false_negatives": 1416,
+    "fp_rate": 0.2315,
+    "fn_rate": 0.0312,
+    "top_10_features": [
+      {
+        "feature": "ct_state_ttl",
+        "importance": 0.120316
+      },
+      {
+        "feature": "sload",
+        "importance": 0.077009
+      },
+      {
+        "feature": "sttl",
+        "importance": 0.070081
+      },
+      {
+        "feature": "dload",
+        "importance": 0.047349
+      },
+      {
+        "feature": "smean",
+        "importance": 0.046713
+      },
+      {
+        "feature": "dur",
+        "importance": 0.046242
+      },
+      {
+        "feature": "rate",
+        "importance": 0.043123
+      },
+      {
+        "feature": "ct_dst_src_ltm",
+        "importance": 0.038643
+      },
+      {
+        "feature": "dttl",
+        "importance": 0.038294
+      },
+      {
+        "feature": "sbytes",
+        "importance": 0.037224
+      }
+    ],
+    "fp_explanation": "False positives (normal traffic classified as attack) increase alert fatigue. Mitigation: tune threshold, add whitelist rules, collect more normal traffic.",
+    "fn_explanation": "False negatives (attacks missed by model) are the more dangerous error type. Mitigation: diversify training data, use ensemble approaches, add rule-based detection."
+  },
+  "detected_threats": [
+    {
+      "event_id": "IOC-175.45.176.0",
+      "event_type": "DoS",
+      "severity": "critical",
+      "anomaly_score": 0.95,
+      "asset_id": "ASSET-175-45-176-0",
+      "flag_reason": "Threat Intel Hit: Actor=APT-Simulated Risk=90",
+      "evidence": {
+        "actor": "APT-Simulated",
+        "mitre_tactics": [
+          "TA0001 Initial Access",
+          "TA0040 Impact"
+        ],
+        "risk_score": 90
+      }
+    },
+    {
+      "event_id": "IOC-175.45.176.1",
+      "event_type": "Reconnaissance",
+      "severity": "medium",
+      "anomaly_score": 0.85,
+      "asset_id": "ASSET-175-45-176-1",
+      "flag_reason": "Threat Intel Hit: Actor=Recon-Scanner-Botnet Risk=75",
+      "evidence": {
+        "actor": "Recon-Scanner-Botnet",
+        "mitre_tactics": [
+          "TA0043 Reconnaissance"
+        ],
+        "risk_score": 75
+      }
+    },
+    {
+      "event_id": "IOC-175.45.176.2",
+      "event_type": "Backdoor",
+      "severity": "critical",
+      "anomaly_score": 0.98,
+      "asset_id": "ASSET-175-45-176-2",
+      "flag_reason": "Threat Intel Hit: Actor=Commodity-Backdoor-C2 Risk=95",
+      "evidence": {
+        "actor": "Commodity-Backdoor-C2",
+        "mitre_tactics": [
+          "TA0011 Command and Control",
+          "TA0003 Persistence"
+        ],
+        "risk_score": 95
+      }
+    }
+  ],
+  "correlated_incidents": [
+    {
+      "incident_id": "INC-ad47cfcf",
+      "alert_count": 1,
+      "event_types": [
+        "DoS"
+      ],
+      "affected_assets": [
+        "ASSET-175-45-176-0"
+      ],
+      "source_ips": [
+        "175.45.176.0"
+      ],
+      "risk_level": "critical",
+      "max_anomaly_score": 0.95,
+      "alert_ids": [
+        "IOC-175.45.176.0"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-175-45-176-0 classified as DoS.",
+      "supporting_evidence": {
+        "actor": "APT-Simulated",
+        "mitre_tactics": [
+          "TA0001 Initial Access",
+          "TA0040 Impact"
+        ],
+        "risk_score": 90
+      },
+      "recommendations": [
+        "Isolate affected asset immediately.",
+        "Notify SOC/IR team.",
+        "Enable rate limiting and upstream DDoS protection."
+      ],
+      "timestamp": "2026-10-22T06:46:38.350695+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-f639ea48",
+      "alert_count": 1,
+      "event_types": [
+        "Reconnaissance"
+      ],
+      "affected_assets": [
+        "ASSET-175-45-176-1"
+      ],
+      "source_ips": [
+        "175.45.176.1"
+      ],
+      "risk_level": "critical",
+      "max_anomaly_score": 0.85,
+      "alert_ids": [
+        "IOC-175.45.176.1"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-175-45-176-1 classified as Reconnaissance.",
+      "supporting_evidence": {
+        "actor": "Recon-Scanner-Botnet",
+        "mitre_tactics": [
+          "TA0043 Reconnaissance"
+        ],
+        "risk_score": 75
+      },
+      "recommendations": [
+        "Isolate affected asset immediately.",
+        "Notify SOC/IR team.",
+        "Block scanning source IPs; tighten firewall rules."
+      ],
+      "timestamp": "2026-10-22T06:46:38.350712+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    },
+    {
+      "incident_id": "INC-589014e3",
+      "alert_count": 1,
+      "event_types": [
+        "Backdoor"
+      ],
+      "affected_assets": [
+        "ASSET-175-45-176-2"
+      ],
+      "source_ips": [
+        "175.45.176.2"
+      ],
+      "risk_level": "critical",
+      "max_anomaly_score": 0.98,
+      "alert_ids": [
+        "IOC-175.45.176.2"
+      ],
+      "correlation_reason": "Isolated security alert for asset ASSET-175-45-176-2 classified as Backdoor.",
+      "supporting_evidence": {
+        "actor": "Commodity-Backdoor-C2",
+        "mitre_tactics": [
+          "TA0011 Command and Control",
+          "TA0003 Persistence"
+        ],
+        "risk_score": 95
+      },
+      "recommendations": [
+        "Isolate affected asset immediately.",
+        "Notify SOC/IR team.",
+        "Check for persistence mechanisms; rotate credentials."
+      ],
+      "timestamp": "2026-10-22T06:46:38.350722+00:00",
+      "_note": "UNSW-NB15 training/testing CSVs lack real timestamps and IP addresses. Incident grouping uses asset_id and source_ip placeholders. Time-window correlation requires real timestamps not present in this dataset split."
+    }
+  ],
+  "affected_assets": [
+    "ASSET-175-45-176-1",
+    "ASSET-175-45-176-0",
+    "ASSET-175-45-176-2"
+  ],
+  "compliance_mappings": [
+    {
+      "incident_id": "INC-ad47cfcf",
+      "risk_level": "critical",
+      "event_types": [
+        "DoS"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "PR.DS-4",
+          "control_name": "Adequate capacity to ensure availability",
+          "rationale": "DoS attacks target service availability. PR.DS-4 requires capacity management to maintain availability."
+        },
+        {
+          "framework": "ISO/IEC 27001:2022",
+          "control_id": "A.8.6",
+          "control_name": "Capacity management",
+          "rationale": "ISO 27001 A.8.6 requires monitoring and managing resource capacity to prevent availability degradation from volumetric attacks."
+        }
+      ],
+      "remediation": [
+        "Implement rate limiting, traffic scrubbing, and CDN-based DDoS mitigation."
+      ],
+      "supporting_evidence": {
+        "actor": "APT-Simulated",
+        "mitre_tactics": [
+          "TA0001 Initial Access",
+          "TA0040 Impact"
+        ],
+        "risk_score": 90
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-f639ea48",
+      "risk_level": "critical",
+      "event_types": [
+        "Reconnaissance"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "DE.AE-1",
+          "control_name": "Network communications baselined",
+          "rationale": "Reconnaissance generates anomalous network patterns. Baseline monitoring enables detection."
+        },
+        {
+          "framework": "ISO/IEC 27001:2022",
+          "control_id": "A.8.16",
+          "control_name": "Monitoring activities",
+          "rationale": "Systematic scanning violates expected use; monitoring activities detects such behaviour."
+        }
+      ],
+      "remediation": [
+        "Block scanning IPs, deploy honeypots, enable intrusion detection signatures."
+      ],
+      "supporting_evidence": {
+        "actor": "Recon-Scanner-Botnet",
+        "mitre_tactics": [
+          "TA0043 Reconnaissance"
+        ],
+        "risk_score": 75
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    },
+    {
+      "incident_id": "INC-589014e3",
+      "risk_level": "critical",
+      "event_types": [
+        "Backdoor"
+      ],
+      "compliance_frameworks": [
+        {
+          "framework": "NIST CSF 2.0",
+          "control_id": "RS.RP-1",
+          "control_name": "Response plan executed",
+          "rationale": "Backdoor installation indicates compromise; an IR plan must be executed."
+        },
+        {
+          "framework": "ISO/IEC 27001:2022",
+          "control_id": "A.5.26",
+          "control_name": "Response to information security incidents",
+          "rationale": "A backdoor constitutes a confirmed incident requiring structured response."
+        }
+      ],
+      "remediation": [
+        "Isolate host, rotate all credentials, scan for persistence, reimage if necessary."
+      ],
+      "supporting_evidence": {
+        "actor": "Commodity-Backdoor-C2",
+        "mitre_tactics": [
+          "TA0011 Command and Control",
+          "TA0003 Persistence"
+        ],
+        "risk_score": 95
+      },
+      "disclaimer": "This is an INDICATIVE compliance mapping produced for assessment purposes only. It is NOT a formal compliance audit or legal determination of non-compliance. Control references are drawn from NIST CSF v2.0 (nist.gov) and ISO/IEC 27001:2022 and have been verified against publicly available documentation. Organisations should engage qualified auditors for formal assessments."
+    }
+  ],
+  "remediation_recommendations": [
+    "Isolate affected asset immediately.",
+    "Notify SOC/IR team.",
+    "Enable rate limiting and upstream DDoS protection.",
+    "Block scanning source IPs; tighten firewall rules.",
+    "Check for persistence mechanisms; rotate credentials."
+  ],
+  "limitations_and_next_steps": [
+    "Retrain on labelled live traffic for production deployment.",
+    "Integrate a real SIEM connector to replace the CSV data source.",
+    "Implement timestamp-based correlation when real timestamps are available.",
+    "Expand compliance mapping coverage to all NIST CSF 2.0 subcategories.",
+    "Add continuous model retraining and drift detection."
+  ]
+}

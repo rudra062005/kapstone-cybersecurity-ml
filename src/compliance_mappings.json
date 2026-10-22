@@ -1,0 +1,158 @@
+{
+  "DoS": {
+    "frameworks": [
+      {
+        "framework": "NIST CSF 2.0",
+        "control_id": "PR.DS-4",
+        "control_name": "Adequate capacity to ensure availability",
+        "rationale": "DoS attacks target service availability. PR.DS-4 requires capacity management to maintain availability."
+      },
+      {
+        "framework": "ISO/IEC 27001:2022",
+        "control_id": "A.8.6",
+        "control_name": "Capacity management",
+        "rationale": "ISO 27001 A.8.6 requires monitoring and managing resource capacity to prevent availability degradation from volumetric attacks."
+      }
+    ],
+    "remediation": "Implement rate limiting, traffic scrubbing, and CDN-based DDoS mitigation."
+  },
+  "Reconnaissance": {
+    "frameworks": [
+      {
+        "framework": "NIST CSF 2.0",
+        "control_id": "DE.AE-1",
+        "control_name": "Network communications baselined",
+        "rationale": "Reconnaissance generates anomalous network patterns. Baseline monitoring enables detection."
+      },
+      {
+        "framework": "ISO/IEC 27001:2022",
+        "control_id": "A.8.16",
+        "control_name": "Monitoring activities",
+        "rationale": "Systematic scanning violates expected use; monitoring activities detects such behaviour."
+      }
+    ],
+    "remediation": "Block scanning IPs, deploy honeypots, enable intrusion detection signatures."
+  },
+  "Exploits": {
+    "frameworks": [
+      {
+        "framework": "NIST CSF 2.0",
+        "control_id": "RS.MI-1",
+        "control_name": "Incidents are contained",
+        "rationale": "Active exploitation requires containment to limit blast radius."
+      },
+      {
+        "framework": "ISO/IEC 27001:2022",
+        "control_id": "A.8.8",
+        "control_name": "Management of technical vulnerabilities",
+        "rationale": "Exploitation of known CVEs indicates unpatched systems; A.8.8 mandates timely patching."
+      }
+    ],
+    "remediation": "Patch vulnerable systems immediately; enable WAF rules; review exploit signatures."
+  },
+  "Backdoor": {
+    "frameworks": [
+      {
+        "framework": "NIST CSF 2.0",
+        "control_id": "RS.RP-1",
+        "control_name": "Response plan executed",
+        "rationale": "Backdoor installation indicates compromise; an IR plan must be executed."
+      },
+      {
+        "framework": "ISO/IEC 27001:2022",
+        "control_id": "A.5.26",
+        "control_name": "Response to information security incidents",
+        "rationale": "A backdoor constitutes a confirmed incident requiring structured response."
+      }
+    ],
+    "remediation": "Isolate host, rotate all credentials, scan for persistence, reimage if necessary."
+  },
+  "Shellcode": {
+    "frameworks": [
+      {
+        "framework": "NIST CSF 2.0",
+        "control_id": "PR.PS-3",
+        "control_name": "Hardware and software are managed",
+        "rationale": "Shellcode execution exploits unmanaged software flaws."
+      },
+      {
+        "framework": "ISO/IEC 27001:2022",
+        "control_id": "A.8.19",
+        "control_name": "Installation of software on operational systems",
+        "rationale": "Shellcode attempts to execute unauthorised code; control over software installation limits exposure."
+      }
+    ],
+    "remediation": "Enable DEP/ASLR, use EDR with memory-protection capabilities, patch affected service."
+  },
+  "Generic": {
+    "frameworks": [
+      {
+        "framework": "NIST CSF 2.0",
+        "control_id": "DE.CM-1",
+        "control_name": "Networks monitored to detect potential cybersecurity events",
+        "rationale": "Generic attack signatures indicate malicious probing; continuous monitoring is required."
+      }
+    ],
+    "remediation": "Review IDS/IPS rules; enhance network visibility and logging."
+  },
+  "Fuzzers": {
+    "frameworks": [
+      {
+        "framework": "NIST CSF 2.0",
+        "control_id": "PR.PS-4",
+        "control_name": "Log records are generated",
+        "rationale": "Fuzzing generates high volumes of anomalous requests; robust logging enables detection."
+      },
+      {
+        "framework": "ISO/IEC 27001:2022",
+        "control_id": "A.8.25",
+        "control_name": "Secure development life cycle",
+        "rationale": "Fuzzing targets input-handling weaknesses; secure development reduces attack surface."
+      }
+    ],
+    "remediation": "Implement input validation and rate limiting on all public-facing services."
+  },
+  "Analysis": {
+    "frameworks": [
+      {
+        "framework": "NIST CSF 2.0",
+        "control_id": "ID.RA-1",
+        "control_name": "Asset vulnerabilities are identified",
+        "rationale": "Analysis-category attacks probe for vulnerabilities; RA-1 mandates proactive identification."
+      }
+    ],
+    "remediation": "Conduct regular vulnerability assessments; restrict exposed services."
+  },
+  "Worms": {
+    "frameworks": [
+      {
+        "framework": "NIST CSF 2.0",
+        "control_id": "PR.IR-1",
+        "control_name": "Networks and environments are protected from unauthorized logical access",
+        "rationale": "Worms propagate via lateral movement; network segmentation limits spread."
+      },
+      {
+        "framework": "ISO/IEC 27001:2022",
+        "control_id": "A.8.22",
+        "control_name": "Segregation of networks",
+        "rationale": "Network segmentation restricts worm propagation across segments."
+      }
+    ],
+    "remediation": "Segment networks, patch propagation vectors, deploy endpoint protection."
+  },
+  "Potential_Attack": {
+    "frameworks": [
+      {
+        "framework": "NIST CSF 2.0",
+        "control_id": "DE.AE-2",
+        "control_name": "Potentially adverse events are analysed",
+        "rationale": "ML-flagged events require analysis before classification."
+      }
+    ],
+    "remediation": "Investigate the flagged event; escalate if confirmed malicious."
+  },
+  "Normal": {
+    "frameworks": [],
+    "remediation": "No action required for normal traffic."
+  }
+}
